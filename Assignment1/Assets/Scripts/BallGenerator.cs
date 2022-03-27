@@ -3,15 +3,17 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BallDown : MonoBehaviour
+public class BallGenerator : MonoBehaviour
 {
-    public float velocity;
+    // TODO: a list holding all balls in the scene
+    public float timeElapsed;
 
-    private Rigidbody2D _rigidbody;
+    public float generateInterval;
 
     private void Awake()
     {
-        _rigidbody = GetComponent<Rigidbody2D>();
+        timeElapsed = 0f;
+        generateInterval = 2f;
     }
 
     // Start is called before the first frame update
@@ -25,9 +27,6 @@ public class BallDown : MonoBehaviour
     {
         
     }
-
-    private void FixedUpdate()
-    {
-        _rigidbody.velocity = new Vector2(_rigidbody.velocity.x, velocity);
-    }
+    
+    // TODO: a method for removing a given ball
 }
