@@ -10,6 +10,8 @@ public class FighterController : MonoBehaviour
     public float velocity;
     
     private Rigidbody2D _rigidbody;
+    private float upperBound = 1.25f;
+    private float lowerBound = -0.25f;
 
     private void Awake()
     {
@@ -49,12 +51,13 @@ public class FighterController : MonoBehaviour
 
     private void ControlUpdate()
     {
+        Vector3 currentPosition = transform.position;
         Vector2 newVelocity = new Vector2(0f, 0f);
-        if (Input.GetKey(KeyCode.W))
+        if (Input.GetKey(KeyCode.W) && currentPosition.y < upperBound)
         {
             newVelocity.y += velocity;
         }
-        if (Input.GetKey(KeyCode.S))
+        if (Input.GetKey(KeyCode.S) && currentPosition.y > lowerBound)
         {
             newVelocity.y -= velocity;
         }

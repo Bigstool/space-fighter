@@ -57,17 +57,18 @@ public class GameManager : MonoBehaviour
             }
         }
     }
-
+    
+    public void StartGame()
+    {
+        Initialize();
+        OnResume();
+    }
+    
     // Called at game launch and game start
     public void Initialize()
     {
         FighterController.instance.Initialize();
-    }
-
-    public void StartGame()
-    {
-        // (Some initial setup)
-        OnResume();
+        // TODO: BallGenerator initialize
     }
 
     public void OnPause()
