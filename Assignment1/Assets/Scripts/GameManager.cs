@@ -68,7 +68,7 @@ public class GameManager : MonoBehaviour
     public void Initialize()
     {
         FighterController.instance.Initialize();
-        // TODO: BallGenerator initialize
+        BallGenerator.instance.Initialize();
     }
 
     public void OnPause()

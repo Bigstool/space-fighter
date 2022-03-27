@@ -17,7 +17,8 @@ public class BallController : MonoBehaviour
     public BallType ballType;
 
     private Rigidbody2D _rigidbody;
-    private Vector2 _velocity;
+    private Vector2 _velocityCache;
+    // TODO: a int counting how many balls in collision, and another int counting how many players in collision
 
     private void Awake()
     {
@@ -38,18 +39,21 @@ public class BallController : MonoBehaviour
 
     public void Initialize()
     {
-        // TODO
+        transform.position = new Vector3(0f, 6.5f, 0f);
+        _rigidbody.velocity = new Vector2(0f, 0f);
+        _velocityCache = new Vector2(0f, 0f);
+        // TODO: counters
     }
 
     public void OnPause()
     {
-        _velocity = new Vector2(_rigidbody.velocity.x, _rigidbody.velocity.y);
+        _velocityCache = new Vector2(_rigidbody.velocity.x, _rigidbody.velocity.y);
         _rigidbody.velocity = new Vector2(0, 0);
     }
 
     public void OnResume()
     {
-        _rigidbody.velocity = _velocity;
+        _rigidbody.velocity = _velocityCache;
     }
 
     private void FixedUpdate()
@@ -58,5 +62,15 @@ public class BallController : MonoBehaviour
         {
             _rigidbody.velocity = new Vector2(_rigidbody.velocity.x, velocity * -1);
         }
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        // TODO: increase corresponding counter, check both counters, check y position relative to player
+    }
+
+    private void OnCollisionExit(Collision other)
+    {
+        // TODO: decrease corresponding counter
     }
 }

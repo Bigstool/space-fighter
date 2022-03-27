@@ -6,7 +6,8 @@ using UnityEngine;
 public class BallGenerator : MonoBehaviour
 {
     public static BallGenerator instance;
-    
+
+    public BallController ballPrefab;
     public float timeElapsed;
     public float generateInterval;
     // All the balls in the scene
@@ -16,8 +17,6 @@ public class BallGenerator : MonoBehaviour
     private void Awake()
     {
         instance = this;
-        timeElapsed = 0f;
-        generateInterval = 2f;
     }
 
     // Start is called before the first frame update
@@ -34,15 +33,19 @@ public class BallGenerator : MonoBehaviour
             timeElapsed += Time.deltaTime;
             if (timeElapsed >= generateInterval)
             {
-                // TODO: generate new ball
+                BallController newBall = Instantiate(ballPrefab);
+                newBall.Initialize();
+                balls.Add(newBall);
                 timeElapsed -= generateInterval;
             }
         }
     }
 
-    void Initialize()
+    public void Initialize()
     {
-        // TODO: time elapsed to 0, clean balls list
+        DestroyAll();
+        timeElapsed = 2f;
+        generateInterval = 2f;
     }
 
     public void OnPause()
@@ -62,4 +65,12 @@ public class BallGenerator : MonoBehaviour
     }
     
     // TODO: a method for removing a given ball
+    public void DestroyAll()
+    {
+        for (int i = 0; i < balls.Count; i++)
+        {
+            Destroy(balls[i].gameObject);
+        }
+        balls = new List<BallController>();
+    }
 }
