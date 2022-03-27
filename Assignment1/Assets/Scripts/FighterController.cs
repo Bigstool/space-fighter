@@ -37,35 +37,18 @@ public class FighterController : MonoBehaviour
         transform.position = new Vector3(0f, 0.5f, -1f);
     }
 
+    public void OnPause()
+    {
+        _rigidbody.velocity = new Vector2(0f, 0f);
+    }
+
+    public void OnResume()
+    {
+        
+    }
+
     private void ControlUpdate()
     {
-        // // If key down
-        // if (Input.GetKey(KeyCode.W))
-        // {
-        //     _rigidbody.velocity = new Vector2(_rigidbody.velocity.x, velocity);
-        // }
-        // if (Input.GetKey(KeyCode.S))
-        // {
-        //     _rigidbody.velocity = new Vector2(_rigidbody.velocity.x, velocity * -1f);
-        // }
-        // if (Input.GetKey(KeyCode.D))
-        // {
-        //     _rigidbody.velocity = new Vector2(velocity, _rigidbody.velocity.y);
-        // }
-        // if (Input.GetKey(KeyCode.A))
-        // {
-        //     _rigidbody.velocity = new Vector2(velocity * -1f, _rigidbody.velocity.y);
-        // }
-        // // If key up
-        // if (!Input.GetKey(KeyCode.W) && !Input.GetKey(KeyCode.S))
-        // {
-        //     _rigidbody.velocity = new Vector2(_rigidbody.velocity.x, 0);
-        // }
-        // if (!Input.GetKey(KeyCode.A) && !Input.GetKey(KeyCode.D))
-        // {
-        //     _rigidbody.velocity = new Vector2(0, _rigidbody.velocity.y);
-        // }
-
         Vector2 newVelocity = new Vector2(0f, 0f);
         if (Input.GetKey(KeyCode.W))
         {

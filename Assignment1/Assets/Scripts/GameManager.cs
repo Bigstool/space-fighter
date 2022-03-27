@@ -44,6 +44,18 @@ public class GameManager : MonoBehaviour
         {
             StartGame();
         }
+
+        if (Input.GetKeyDown(KeyCode.P))
+        {
+            if (currentGameState == GameState.inGame)
+            {
+                OnPause();
+            }
+            else if (currentGameState == GameState.pause)
+            {
+                OnResume();
+            }
+        }
     }
 
     // Called at game launch and game start
@@ -55,19 +67,23 @@ public class GameManager : MonoBehaviour
     public void StartGame()
     {
         // (Some initial setup)
-        Resume();
+        OnResume();
     }
-    
-    public void Resume()
-        {
-            currentGameState = GameState.inGame;
-        }
 
-    public void Pause()
+    public void OnPause()
     {
+        FighterController.instance.OnPause();
+        BallGenerator.instance.OnPause();
         currentGameState = GameState.pause;
     }
-
+    
+    public void OnResume()
+    {
+        FighterController.instance.OnResume();
+        BallGenerator.instance.OnResume();
+        currentGameState = GameState.inGame;
+    }
+    
     public void GameOver(GameOverState gameOverState)
     {
         currentGameState = GameState.gameOver;

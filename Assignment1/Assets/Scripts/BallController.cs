@@ -36,9 +36,9 @@ public class BallController : MonoBehaviour
         
     }
 
-    public void OnSpawn()
+    public void Initialize()
     {
-        
+        // TODO
     }
 
     public void OnPause()

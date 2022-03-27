@@ -290,6 +290,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   timeElapsed: 0
   generateInterval: 0
+  balls:
+  - {fileID: 522812459}
+  - {fileID: 802668255}
+  - {fileID: 465142924}
+  - {fileID: 47937827}
+  - {fileID: 1891619553}
 --- !u!4 &80179111
 Transform:
   m_ObjectHideFlags: 0
