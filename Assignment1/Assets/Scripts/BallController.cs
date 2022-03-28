@@ -110,8 +110,11 @@ public class BallController : MonoBehaviour
         {
             _playerCol += 1;
         }
-        // TODO: check debris destroy using relative position
-        // TODO: check destroy: check both counters, check y position relative to player
+        // check debris destroy using relative position
+        if (_ballCol > 0 && _playerCol > 0 && transform.position.y > FighterController.instance.transform.position.y)
+        {
+            GameManager.instance.OnGameOver(GameOverState.destroy);
+        }
     }
 
     private void OnCollisionExit2D(Collision2D col)

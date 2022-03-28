@@ -94,11 +94,11 @@ public class GameManager : MonoBehaviour
         currentGameState = GameState.inGame;
     }
     
-    public void OnGameOver(GameOverState gameOverState)
+    public void OnGameOver(GameOverState state)
     {
         OnPause();
         currentGameState = GameState.gameOver;
-        this.gameOverState = gameOverState;
+        gameOverState = state;
     }
 
     public void OnMenu()
