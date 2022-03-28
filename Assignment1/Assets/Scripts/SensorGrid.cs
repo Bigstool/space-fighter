@@ -84,14 +84,121 @@ public class SensorGrid : MonoBehaviour
     public void OnCellEntry(int row, int column, GameObject ball)
     {
         ballGrid[row, column] = ball;
-        // TODO: check
+        CheckGrid();
     }
 
     public void OnCellExit(int row, int column)
     {
         ballGrid[row, column] = null;
-        // TODO: check
+        CheckGrid();
     }
     
-    // TODO: check overflow, check debris, check matches
+    // Checks overflow, debris, and match
+    private void CheckGrid()
+    {
+        // Check overflow
+        for (int column = 0; column < columns; column++)  // Check every column
+        {
+            if (ballGrid[0, column] != null)  // If the overflow column is not empty
+            {
+                bool overflow = true;
+                for (int row = 1; row < rows; row++)  // Look into each row of the column to see if there's still empty space
+                {
+                    if (ballGrid[row, column] == null)
+                    {
+                        overflow = false;
+                        break;
+                    }
+                }
+
+                if (overflow) GameManager.instance.OnGameOver(GameOverState.overflow);  // if overflow, end the game
+            }
+        }
+        
+        // check debris
+        int numDebris = 0;
+        for (int row = 1; row < rows; row++)
+        {
+            for (int column = 0; column < columns; column++)
+            {
+                if (ballGrid[row, column] != null && ballGrid[row, column].GetComponent<BallController>().ballType == BallType.debris) numDebris++;
+            }
+        }
+        if (numDebris > 5) GameManager.instance.OnGameOver(GameOverState.debris);
+        
+        // Check match
+        List<GameObject> match = new List<GameObject>();
+        
+        // check column match
+        for (int row = 1; row < rows; row++)
+        {
+            BallType previousType = BallType.debris;
+            int sameCount = 1;
+            bool found = false;
+            
+            for (int column = 0; column < columns; column++)
+            {
+                if (ballGrid[row, column] != null)
+                {
+                    BallType nextType = ballGrid[row, column].GetComponent<BallController>().ballType;
+                    if (nextType != BallType.debris && previousType == nextType) sameCount++;
+                    else
+                    {
+                        previousType = nextType;
+                        sameCount = 1;
+                    }
+                }
+                else
+                {
+                    previousType = BallType.debris;
+                    sameCount = 1;
+                }
+                if (sameCount == 3)
+                {
+                    for (int i = 0; i < sameCount; i++) match.Add(ballGrid[row, column - i]);
+                    found = true;
+                    break;
+                }
+            }
+
+            if (found) break;
+        }
+        
+        // check row match
+        for (int column = 0; column < columns; column++)
+        {
+            BallType previousType = BallType.debris;
+            int sameCount = 1;
+            bool found = false;
+
+            for (int row = 5; row > 0; row--)
+            {
+                if (ballGrid[row, column] != null)
+                {
+                    BallType nextType = ballGrid[row, column].GetComponent<BallController>().ballType;
+                    if (nextType != BallType.debris && previousType == nextType) sameCount++;
+                    else
+                    {
+                        previousType = nextType;
+                        sameCount = 1;
+                    }
+                }
+                else
+                {
+                    previousType = BallType.debris;
+                    sameCount = 1;
+                }
+                if (sameCount == 3)
+                {
+                    for (int i = 0; i < sameCount; i++) if (!match.Contains(ballGrid[row + i, column])) match.Add(ballGrid[row + i, column]);
+                    found = true;
+                    break;
+                }
+            }
+
+            if (found) break;
+        }
+        
+        if (match.Count > 0) GameManager.instance.OnMatch(match);
+    }
 }

@@ -93,4 +93,9 @@ public class BallGenerator : MonoBehaviour
     }
     
     // TODO: a method for removing a given ball
+    public void DestroyBall(GameObject ball)
+    {
+        balls.Remove(ball);
+        Destroy(ball);
+    }
 }

@@ -23,17 +23,19 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager instance;
 
-    public GameState currentGameState = GameState.menu;
+    public GameState currentGameState;
+    public GameOverState gameOverState;
+    public int score;
 
     private void Awake()
     {
+        currentGameState = GameState.menu;
         instance = this;
     }
 
     // Start is called before the first frame update
     void Start()
     {
-        currentGameState = GameState.menu;
         Initialize();
     }
 
@@ -42,7 +44,7 @@ public class GameManager : MonoBehaviour
     {
         if (Input.GetMouseButtonDown(0))
         {
-            StartGame();
+            OnStart();
         }
 
         if (Input.GetKeyDown(KeyCode.Space))
@@ -58,7 +60,7 @@ public class GameManager : MonoBehaviour
         }
     }
     
-    public void StartGame()
+    public void OnStart()
     {
         Initialize();
         OnResume();
@@ -70,6 +72,7 @@ public class GameManager : MonoBehaviour
         FighterController.instance.Initialize();
         BallGenerator.instance.Initialize();
         SensorGrid.instance.Initialize();
+        score = 0;
     }
 
     public void OnPause()
@@ -88,13 +91,32 @@ public class GameManager : MonoBehaviour
         currentGameState = GameState.inGame;
     }
     
-    public void GameOver(GameOverState gameOverState)
+    public void OnGameOver(GameOverState gameOverState)
     {
+        OnPause();
         currentGameState = GameState.gameOver;
+        this.gameOverState = gameOverState;
     }
 
-    public void BackToMenu()
+    public void OnMenu()
     {
         currentGameState = GameState.menu;
+    }
+
+    public void OnMatch(List<GameObject> match)
+    {
+        int matchSize = match.Count;
+        if (matchSize >= 5) addScore(30);  // +30
+        else if (matchSize >= 3) addScore(10);  // +10
+        // Destroy balls
+        for (int i = 0; i < matchSize; i++)
+        {
+            BallGenerator.instance.DestroyBall(match[i]);
+        }
+    }
+
+    private void addScore(int add)
+    {
+        score += add;
     }
 }
