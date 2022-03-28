@@ -43,10 +43,12 @@ public class BallController : MonoBehaviour
 
     public void Initialize(BallType type)
     {
-        // Position and Velocity
+        // Position, velocity, and drag
         transform.position = new Vector3(0f, 6.5f, 0f);
         _rigidbody.velocity = new Vector2(0f, 0f);
         _velocityCache = new Vector2(0f, 0f);
+        _rigidbody.drag = 10;
+        _rigidbody.angularDrag = 10;
         // Counters
         _ballCol = 0;
         _playerCol = 0;
@@ -93,6 +95,12 @@ public class BallController : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D col)
     {
+        // Set all drag to 0 upon contact with the track
+        if (col.gameObject.tag == "Track")
+        {
+            _rigidbody.drag = 0;
+            _rigidbody.angularDrag = 0;
+        }
         // Increase corresponding counters
         if (col.gameObject.tag == "Ball")
         {
