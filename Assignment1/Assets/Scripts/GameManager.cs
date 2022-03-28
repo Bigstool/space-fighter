@@ -124,6 +124,14 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    public void OnDebrisClean(GameObject debris)
+    {
+        // Destroy ball
+        BallGenerator.instance.DestroyBall(debris);
+        // Increase score
+        AddScore(5);
+    }
+
     private void AddScore(int add)
     {
         score += add;

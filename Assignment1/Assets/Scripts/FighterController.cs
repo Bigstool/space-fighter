@@ -73,4 +73,18 @@ public class FighterController : MonoBehaviour
 
         _rigidbody.velocity = newVelocity;
     }
+    
+    private void OnCollisionEnter2D(Collision2D col)
+    {
+        GameObject obj = col.gameObject;
+        // Destroy debris
+        if (obj.tag == "Ball" && obj.GetComponent<BallController>().ballType == BallType.debris)
+        {
+            Vector3 myPos = transform.position;
+            Vector3 debrisPos = obj.transform.position;
+            float deltaX = debrisPos.x - myPos.x;
+            float deltaY = debrisPos.y - myPos.y;
+            if (deltaY > 0 && (deltaX / deltaY) < 1 && (deltaX / deltaY) > -1) GameManager.instance.OnDebrisClean(obj);
+        }
+    }
 }
