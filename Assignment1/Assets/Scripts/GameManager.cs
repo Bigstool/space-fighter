@@ -29,8 +29,8 @@ public class GameManager : MonoBehaviour
 
     private void Awake()
     {
-        currentGameState = GameState.menu;
         instance = this;
+        currentGameState = GameState.menu;
     }
 
     // Start is called before the first frame update
@@ -106,8 +106,8 @@ public class GameManager : MonoBehaviour
     public void OnMatch(List<GameObject> match)
     {
         int matchSize = match.Count;
-        if (matchSize >= 5) addScore(30);  // +30
-        else if (matchSize >= 3) addScore(10);  // +10
+        if (matchSize >= 5) AddScore(30);  // +30
+        else if (matchSize >= 3) AddScore(10);  // +10
         // Destroy balls
         for (int i = 0; i < matchSize; i++)
         {
@@ -115,8 +115,14 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    private void addScore(int add)
+    private void AddScore(int add)
     {
         score += add;
+        CheckWin();
+    }
+
+    private void CheckWin()
+    {
+        if (score >= 100) OnGameOver(GameOverState.win);
     }
 }

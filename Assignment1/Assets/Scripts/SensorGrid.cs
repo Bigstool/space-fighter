@@ -93,7 +93,7 @@ public class SensorGrid : MonoBehaviour
         CheckGrid();
     }
     
-    // Checks overflow, debris, and match
+    // Checks overflow, debris, and match TODO: check valid match (no mid-air matches)
     private void CheckGrid()
     {
         // Check overflow
