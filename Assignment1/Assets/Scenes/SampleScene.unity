@@ -741,7 +741,7 @@ GameObject:
   - component: {fileID: 522812459}
   m_Layer: 0
   m_Name: Ball
-  m_TagString: Untagged
+  m_TagString: Ball
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -862,6 +862,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   velocity: 2
   ballType: 0
+  _ballCol: 0
+  _playerCol: 0
 --- !u!1 &726699189
 GameObject:
   m_ObjectHideFlags: 0

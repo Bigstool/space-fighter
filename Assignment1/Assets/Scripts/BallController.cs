@@ -19,6 +19,8 @@ public class BallController : MonoBehaviour
     private Rigidbody2D _rigidbody;
     private Vector2 _velocityCache;
     // TODO: a int counting how many balls in collision, and another int counting how many players in collision
+    private int _ballCol;
+    private int _playerCol;
 
     private void Awake()
     {
@@ -43,6 +45,8 @@ public class BallController : MonoBehaviour
         _rigidbody.velocity = new Vector2(0f, 0f);
         _velocityCache = new Vector2(0f, 0f);
         // TODO: counters
+        _ballCol = 0;
+        _playerCol = 0;
     }
 
     public void OnPause()
@@ -64,13 +68,29 @@ public class BallController : MonoBehaviour
         }
     }
 
-    private void OnCollisionEnter(Collision collision)
+    private void OnCollisionEnter2D(Collision2D col)
     {
-        // TODO: increase corresponding counter, check both counters, check y position relative to player
+        if (col.gameObject.tag == "Ball")
+        {
+            _ballCol += 1;
+        }
+        if (col.gameObject.tag == "Player")
+        {
+            _playerCol += 1;
+        }
+        // TODO: check both counters, check y position relative to player
     }
 
-    private void OnCollisionExit(Collision other)
+    private void OnCollisionExit2D(Collision2D col)
     {
         // TODO: decrease corresponding counter
+        if (col.gameObject.tag == "Ball")
+        {
+            _ballCol -= 1;
+        }
+        if (col.gameObject.tag == "Player")
+        {
+            _playerCol -= 1;
+        }
     }
 }
