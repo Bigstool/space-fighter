@@ -33,7 +33,6 @@ public class SensorGrid : MonoBehaviour
     public void Initialize()
     {
         ballGrid = new GameObject[rows, columns];
-        DebugPrintGrid();
     }
 
     public void OnPause()
@@ -85,14 +84,12 @@ public class SensorGrid : MonoBehaviour
     public void OnCellEntry(int row, int column, GameObject ball)
     {
         ballGrid[row, column] = ball;
-        DebugPrintGrid();
         // TODO: check
     }
 
     public void OnCellExit(int row, int column)
     {
         ballGrid[row, column] = null;
-        DebugPrintGrid();
         // TODO: check
     }
     
