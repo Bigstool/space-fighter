@@ -74,11 +74,13 @@ public class BallController : MonoBehaviour
     {
         _velocityCache = new Vector2(_rigidbody.velocity.x, _rigidbody.velocity.y);
         _rigidbody.velocity = new Vector2(0, 0);
+        _rigidbody.constraints = RigidbodyConstraints2D.FreezeAll;
     }
 
     public void OnResume()
     {
         _rigidbody.velocity = _velocityCache;
+        _rigidbody.constraints = RigidbodyConstraints2D.None;
     }
 
     private void FixedUpdate()

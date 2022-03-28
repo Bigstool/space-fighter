@@ -42,11 +42,12 @@ public class FighterController : MonoBehaviour
     public void OnPause()
     {
         _rigidbody.velocity = new Vector2(0f, 0f);
+        _rigidbody.constraints = RigidbodyConstraints2D.FreezeAll;
     }
 
     public void OnResume()
     {
-        
+        _rigidbody.constraints = RigidbodyConstraints2D.None;
     }
 
     private void ControlUpdate()
