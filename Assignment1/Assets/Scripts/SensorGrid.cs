@@ -121,7 +121,7 @@ public class SensorGrid : MonoBehaviour
         {
             for (int column = 0; column < columns; column++)
             {
-                if (ballGrid[row, column] != null && ballGrid[row, column].GetComponent<BallController>().ballType == BallType.debris) numDebris++;
+                if (ballGrid[row, column] != null && ballGrid[row, column].GetComponent<BallController>().ballType == BallType.debris && CheckValid(row, column)) numDebris++;
             }
         }
         if (numDebris > 5) GameManager.instance.OnGameOver(GameOverState.debris);
@@ -138,7 +138,7 @@ public class SensorGrid : MonoBehaviour
             
             for (int column = 0; column < columns; column++)
             {
-                if (ballGrid[row, column] != null)
+                if (ballGrid[row, column] != null && CheckValid(row, column))
                 {
                     BallType nextType = ballGrid[row, column].GetComponent<BallController>().ballType;
                     if (nextType != BallType.debris && previousType == nextType) sameCount++;
@@ -173,7 +173,7 @@ public class SensorGrid : MonoBehaviour
 
             for (int row = 5; row > 0; row--)
             {
-                if (ballGrid[row, column] != null)
+                if (ballGrid[row, column] != null && CheckValid(row, column))
                 {
                     BallType nextType = ballGrid[row, column].GetComponent<BallController>().ballType;
                     if (nextType != BallType.debris && previousType == nextType) sameCount++;
@@ -200,5 +200,12 @@ public class SensorGrid : MonoBehaviour
         }
         
         if (match.Count > 0) GameManager.instance.OnMatch(match);
+    }
+
+    // check valid match (no mid-air matches)
+    private bool CheckValid(int row, int column)
+    {
+        for (; row < rows; row++) if (ballGrid[row, column] == null) return false;
+        return true;
     }
 }
