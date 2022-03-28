@@ -17,6 +17,7 @@ public class BallController : MonoBehaviour
     public BallType ballType;
 
     private Rigidbody2D _rigidbody;
+    private SpriteRenderer _renderer;
     private Vector2 _velocityCache;
     // TODO: a int counting how many balls in collision, and another int counting how many players in collision
     private int _ballCol;
@@ -25,6 +26,7 @@ public class BallController : MonoBehaviour
     private void Awake()
     {
         _rigidbody = GetComponent<Rigidbody2D>();
+        _renderer = GetComponent<SpriteRenderer>();
     }
 
     // Start is called before the first frame update
@@ -39,14 +41,33 @@ public class BallController : MonoBehaviour
         
     }
 
-    public void Initialize()
+    public void Initialize(BallType type)
     {
+        // Position and Velocity
         transform.position = new Vector3(0f, 6.5f, 0f);
         _rigidbody.velocity = new Vector2(0f, 0f);
         _velocityCache = new Vector2(0f, 0f);
-        // TODO: counters
+        // Counters
         _ballCol = 0;
         _playerCol = 0;
+        // TODO: BallType initialization
+        if (type == BallType.red)
+        {
+            _renderer.color = new Color32((byte)255, (byte)0, (byte)0, (byte)255);
+        }
+        if (type == BallType.green)
+        {
+            _renderer.color = new Color32((byte)0, (byte)255, (byte)0, (byte)255);
+        }
+        if (type == BallType.blue)
+        {
+            _renderer.color = new Color32((byte)0, (byte)0, (byte)255, (byte)255);
+        }
+        if (type == BallType.debris)
+        {
+            _renderer.color = new Color32((byte)128, (byte)128, (byte)128, (byte)255);
+        }
+        ballType = type;
     }
 
     public void OnPause()

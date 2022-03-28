@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 public class BallGenerator : MonoBehaviour
 {
@@ -12,7 +13,8 @@ public class BallGenerator : MonoBehaviour
     public float generateInterval;
     // All the balls in the scene
     public List<BallController> balls = new List<BallController>();
-    
+
+    public BallType _previousBall;
 
     private void Awake()
     {
@@ -33,12 +35,25 @@ public class BallGenerator : MonoBehaviour
             timeElapsed += Time.deltaTime;
             if (timeElapsed >= generateInterval)
             {
-                BallController newBall = Instantiate(ballPrefab);
-                newBall.Initialize();
+                BallController newBall = Instantiate(ballPrefab, this.transform);
+                BallType newBallType;
+                while (true)
+                {
+                    newBallType = RandomBall();
+                    if (newBallType != _previousBall) break;
+                }
+                newBall.Initialize(newBallType);
+                _previousBall = newBallType;
                 balls.Add(newBall);
                 timeElapsed -= generateInterval;
             }
         }
+    }
+
+    private BallType RandomBall()
+    {
+        BallType randomBall = (BallType) Random.Range(0, Enum.GetValues(typeof(BallType)).Length);
+        return randomBall;
     }
 
     public void Initialize()
@@ -46,6 +61,7 @@ public class BallGenerator : MonoBehaviour
         DestroyAll();
         timeElapsed = 2f;
         generateInterval = 2f;
+        _previousBall = RandomBall();
     }
 
     public void OnPause()
