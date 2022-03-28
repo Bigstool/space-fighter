@@ -69,12 +69,14 @@ public class GameManager : MonoBehaviour
     {
         FighterController.instance.Initialize();
         BallGenerator.instance.Initialize();
+        SensorGrid.instance.Initialize();
     }
 
     public void OnPause()
     {
         FighterController.instance.OnPause();
         BallGenerator.instance.OnPause();
+        SensorGrid.instance.OnPause();
         currentGameState = GameState.pause;
     }
     
@@ -82,6 +84,7 @@ public class GameManager : MonoBehaviour
     {
         FighterController.instance.OnResume();
         BallGenerator.instance.OnResume();
+        SensorGrid.instance.OnResume();
         currentGameState = GameState.inGame;
     }
     
