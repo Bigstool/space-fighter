@@ -26,6 +26,8 @@ public class GameManager : MonoBehaviour
     public GameState currentGameState;
     public GameOverState gameOverState;
     public int score;
+    
+    private float _prevTime;
 
     private void Awake()
     {
@@ -73,6 +75,7 @@ public class GameManager : MonoBehaviour
         BallGenerator.instance.Initialize();
         SensorGrid.instance.Initialize();
         score = 0;
+        _prevTime = Time.time;
     }
 
     public void OnPause()
@@ -102,16 +105,22 @@ public class GameManager : MonoBehaviour
     {
         currentGameState = GameState.menu;
     }
-
+    
     public void OnMatch(List<GameObject> match)
     {
-        int matchSize = match.Count;
-        if (matchSize >= 5) AddScore(30);  // +30
-        else if (matchSize >= 3) AddScore(10);  // +10
-        // Destroy balls
-        for (int i = 0; i < matchSize; i++)
+        float currentTime = Time.time;
+        if (currentTime - _prevTime > 0.01f)
         {
-            BallGenerator.instance.DestroyBall(match[i]);
+            _prevTime = currentTime;
+            int matchSize = match.Count;
+            // Destroy balls
+            for (int i = 0; i < matchSize; i++)
+            {
+                BallGenerator.instance.DestroyBall(match[i]);
+            }
+            // Increase score
+            if (matchSize >= 5) AddScore(30);  // +30
+            else if (matchSize >= 3) AddScore(10);  // +10
         }
     }
 
