@@ -91,6 +91,7 @@ public class BallController : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D col)
     {
+        // Increase corresponding counters
         if (col.gameObject.tag == "Ball")
         {
             _ballCol += 1;
@@ -99,12 +100,13 @@ public class BallController : MonoBehaviour
         {
             _playerCol += 1;
         }
-        // TODO: check both counters, check y position relative to player
+        // TODO: check debris destroy using relative position
+        // TODO: check destroy: check both counters, check y position relative to player
     }
 
     private void OnCollisionExit2D(Collision2D col)
     {
-        // TODO: decrease corresponding counter
+        // decrease corresponding counters
         if (col.gameObject.tag == "Ball")
         {
             _ballCol -= 1;

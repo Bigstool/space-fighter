@@ -8,17 +8,18 @@ public class BallGenerator : MonoBehaviour
 {
     public static BallGenerator instance;
 
-    public GameObject ballPrefab;    // TODO: gameObject
+    public GameObject ballPrefab;
     public float timeElapsed;
     public float generateInterval;
     // All the balls in the scene
-    public List<GameObject> balls = new List<GameObject>();  // TODO: gameObject
+    public List<GameObject> balls;
 
     private BallType _previousBall;
 
     private void Awake()
     {
         instance = this;
+        balls = new List<GameObject>();
     }
 
     // Start is called before the first frame update
@@ -82,7 +83,6 @@ public class BallGenerator : MonoBehaviour
         }
     }
     
-    // TODO: a method for removing a given ball
     public void DestroyAll()
     {
         for (int i = 0; i < balls.Count; i++)
@@ -91,4 +91,6 @@ public class BallGenerator : MonoBehaviour
         }
         balls = new List<GameObject>();
     }
+    
+    // TODO: a method for removing a given ball
 }
