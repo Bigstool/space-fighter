@@ -53,19 +53,19 @@ public class FighterController : MonoBehaviour
     {
         Vector3 currentPosition = transform.position;
         Vector2 newVelocity = new Vector2(0f, 0f);
-        if (Input.GetKey(KeyCode.W) && currentPosition.y < upperBound)
+        if (Input.GetKey(KeyCode.UpArrow) && currentPosition.y < upperBound)
         {
             newVelocity.y += velocity;
         }
-        if (Input.GetKey(KeyCode.S) && currentPosition.y > lowerBound)
+        if (Input.GetKey(KeyCode.DownArrow) && currentPosition.y > lowerBound)
         {
             newVelocity.y -= velocity;
         }
-        if (Input.GetKey(KeyCode.D))
+        if (Input.GetKey(KeyCode.RightArrow))
         {
             newVelocity.x += velocity;
         }
-        if (Input.GetKey(KeyCode.A))
+        if (Input.GetKey(KeyCode.LeftArrow))
         {
             newVelocity.x -= velocity;
         }
