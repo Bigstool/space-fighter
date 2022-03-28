@@ -8,13 +8,13 @@ public class BallGenerator : MonoBehaviour
 {
     public static BallGenerator instance;
 
-    public BallController ballPrefab;
+    public GameObject ballPrefab;    // TODO: gameObject
     public float timeElapsed;
     public float generateInterval;
     // All the balls in the scene
-    public List<BallController> balls = new List<BallController>();
+    public List<GameObject> balls = new List<GameObject>();  // TODO: gameObject
 
-    public BallType _previousBall;
+    private BallType _previousBall;
 
     private void Awake()
     {
@@ -33,16 +33,18 @@ public class BallGenerator : MonoBehaviour
         if (GameManager.instance.currentGameState == GameState.inGame)
         {
             timeElapsed += Time.deltaTime;
+            // Generate new ball
             if (timeElapsed >= generateInterval)
             {
-                BallController newBall = Instantiate(ballPrefab, this.transform);
+                GameObject newBall = Instantiate(ballPrefab, this.transform);
+                // Make sure the new ball's color is not the same with the previous one
                 BallType newBallType;
                 while (true)
                 {
-                    newBallType = RandomBall();
+                    newBallType = RandomType();
                     if (newBallType != _previousBall) break;
                 }
-                newBall.Initialize(newBallType);
+                newBall.GetComponent<BallController>().Initialize(newBallType);
                 _previousBall = newBallType;
                 balls.Add(newBall);
                 timeElapsed -= generateInterval;
@@ -50,10 +52,10 @@ public class BallGenerator : MonoBehaviour
         }
     }
 
-    private BallType RandomBall()
+    private BallType RandomType()
     {
-        BallType randomBall = (BallType) Random.Range(0, Enum.GetValues(typeof(BallType)).Length);
-        return randomBall;
+        BallType randomType = (BallType) Random.Range(0, Enum.GetValues(typeof(BallType)).Length);
+        return randomType;
     }
 
     public void Initialize()
@@ -61,14 +63,14 @@ public class BallGenerator : MonoBehaviour
         DestroyAll();
         timeElapsed = 2f;
         generateInterval = 2f;
-        _previousBall = RandomBall();
+        _previousBall = RandomType();
     }
 
     public void OnPause()
     {
         for (int i = 0; i < balls.Count; i++)
         {
-            balls[i].OnPause();
+            balls[i].GetComponent<BallController>().OnPause();
         }
     }
 
@@ -76,7 +78,7 @@ public class BallGenerator : MonoBehaviour
     {
         for (int i = 0; i < balls.Count; i++)
         {
-            balls[i].OnResume();
+            balls[i].GetComponent<BallController>().OnResume();
         }
     }
     
@@ -85,8 +87,8 @@ public class BallGenerator : MonoBehaviour
     {
         for (int i = 0; i < balls.Count; i++)
         {
-            Destroy(balls[i].gameObject);
+            Destroy(balls[i]);
         }
-        balls = new List<BallController>();
+        balls = new List<GameObject>();
     }
 }
