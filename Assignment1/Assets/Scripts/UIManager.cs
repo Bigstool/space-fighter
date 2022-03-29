@@ -61,6 +61,7 @@ public class UIManager : MonoBehaviour
     {
         _prevTime = Time.time;
         _totalTime = 0;
+        t.text = "T: 00:00";
         UpdateHUD();
         menu.enabled = true;
         popup.enabled = false;
