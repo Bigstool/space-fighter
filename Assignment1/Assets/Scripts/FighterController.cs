@@ -47,7 +47,7 @@ public class FighterController : MonoBehaviour
 
     public void OnResume()
     {
-        _rigidbody.constraints = RigidbodyConstraints2D.None;
+        _rigidbody.constraints = RigidbodyConstraints2D.FreezeRotation;
     }
 
     private void ControlUpdate()
