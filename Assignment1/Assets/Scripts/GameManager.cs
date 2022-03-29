@@ -129,13 +129,18 @@ public class GameManager : MonoBehaviour
             {
                 BallGenerator.instance.DestroyBall(match[i]);
             }
-            // Increase score
-            if (matchSize >= 5) AddScore(30);  // +30
-            else if (matchSize >= 3) AddScore(10);  // +10
-            // Increase match count
-            if (matchType == BallType.red) red++;
-            if (matchType == BallType.green) green++;
-            if (matchType == BallType.blue) blue++;
+            // Increase score and match count
+            if (matchSize >= 5)
+            {
+                AddScore(30);  // +30
+                AddCount(matchType, 2);
+            }
+            else if (matchSize >= 3)
+            {
+                AddScore(10);  // +10
+                AddCount(matchType, 1);
+            }
+            // Update HUD
             UIManager.instance.UpdateHUD();
         }
     }
@@ -156,6 +161,13 @@ public class GameManager : MonoBehaviour
         score += add;
         UIManager.instance.UpdateHUD();
         CheckWin();
+    }
+
+    private void AddCount(BallType type, int count)
+    {
+        if (type == BallType.red) red += count;
+        if (type == BallType.green) green += count;
+        if (type == BallType.blue) blue += count;
     }
 
     private void CheckWin()
