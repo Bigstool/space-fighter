@@ -267,7 +267,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &107185021
 RectTransform:
   m_ObjectHideFlags: 0
@@ -932,6 +932,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 291784980}
+  - component: {fileID: 291784981}
   m_Layer: 0
   m_Name: UI
   m_TagString: Untagged
@@ -956,6 +957,32 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &291784981
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 291784979}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4964a82cbf9fb3649b166a19b085a290, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  hud: {fileID: 1159062443}
+  menu: {fileID: 2052753112}
+  popup: {fileID: 107185024}
+  dh: {fileID: 308006406}
+  ipg: {fileID: 1224952022}
+  s: {fileID: 35405760}
+  t: {fileID: 1160908814}
+  r: {fileID: 195436607}
+  g: {fileID: 1679006923}
+  b: {fileID: 373034124}
+  start: {fileID: 689738947}
+  resume: {fileID: 716434914}
+  restart: {fileID: 1301187392}
+  toMenu: {fileID: 859208846}
 --- !u!1 &308006404
 GameObject:
   m_ObjectHideFlags: 0
@@ -2318,13 +2345,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   currentGameState: 0
   gameOverState: 0
-  dh: {fileID: 308006406}
-  ipg: {fileID: 1224952022}
-  s: {fileID: 35405760}
-  t: {fileID: 1160908814}
-  r: {fileID: 195436607}
-  g: {fileID: 1679006923}
-  b: {fileID: 373034124}
+  debrisHit: 0
+  score: 0
+  red: 0
+  green: 0
+  blue: 0
 --- !u!4 &726699191
 Transform:
   m_ObjectHideFlags: 0
@@ -4662,7 +4687,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &2052753109
 RectTransform:
   m_ObjectHideFlags: 0
