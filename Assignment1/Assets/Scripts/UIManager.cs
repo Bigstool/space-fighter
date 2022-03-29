@@ -90,12 +90,12 @@ public class UIManager : MonoBehaviour
         }
         else if (state == GameOverState.overflow)
         {
-            popupText.text = "Opps! Ionised particles are not successfully lined in the storage!";
+            popupText.text = "Oops! Ionised particles are not successfully lined in the storage!";
             popupText.color = new Color32((byte)255, (byte)165, (byte)0, (byte)255);
         }
         else if (state == GameOverState.debris)
         {
-            popupText.text = "Opps! Debris are filled in the storage!";
+            popupText.text = "Oops! Debris are filled in the storage!";
             popupText.color = new Color32((byte)0, (byte)0, (byte)0, (byte)255);
         }
         else if (state == GameOverState.destroy)
@@ -127,6 +127,6 @@ public class UIManager : MonoBehaviour
         s.text = "S: " + GameManager.instance.score;
         r.text = "R: " + GameManager.instance.red;
         g.text = "G: " + GameManager.instance.green;
-        b.text = "G: " + GameManager.instance.blue;
+        b.text = "B: " + GameManager.instance.blue;
     }
 }
