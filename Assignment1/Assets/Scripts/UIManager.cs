@@ -26,6 +26,7 @@ public class UIManager : MonoBehaviour
     public Button start;
     
     // Popup elements
+    public Text popupText;
     public Button resume;
     public Button restart;
     public Button toMenu;
@@ -41,7 +42,9 @@ public class UIManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        hud.enabled = true;
+        menu.enabled = true;
+        popup.enabled = false;
     }
 
     // Update is called once per frame
@@ -59,28 +62,51 @@ public class UIManager : MonoBehaviour
         _prevTime = Time.time;
         _totalTime = 0;
         UpdateHUD();
+        menu.enabled = true;
+        popup.enabled = false;
     }
 
     public void OnResume()
     {
         _prevTime = Time.time;
+        menu.enabled = false;
+        popup.enabled = false;
     }
 
     public void OnPause()
     {
-        
+        popupText.text = "Pause";
+        popupText.color = new Color32((byte)255, (byte)255, (byte)255, (byte)255);
+        resume.gameObject.SetActive(true);
+        popup.enabled = true;
     }
 
     public void OnGameOver(GameOverState state)
     {
-        
+        if (state == GameOverState.win)
+        {
+            popupText.text = "Congratulations! You Won!";
+            popupText.color = new Color32((byte)255, (byte)255, (byte)0, (byte)255);
+        }
+        else if (state == GameOverState.overflow)
+        {
+            popupText.text = "Opps! Ionised particles are not successfully lined in the storage!";
+            popupText.color = new Color32((byte)255, (byte)165, (byte)0, (byte)255);
+        }
+        else if (state == GameOverState.debris)
+        {
+            popupText.text = "Opps! Debris are filled in the storage!";
+            popupText.color = new Color32((byte)0, (byte)0, (byte)0, (byte)255);
+        }
+        else if (state == GameOverState.destroy)
+        {
+            popupText.text = "Oops! Space Fighter has been destroyed!";
+            popupText.color = new Color32((byte)255, (byte)0, (byte)0, (byte)255);
+        }
+        resume.gameObject.SetActive(false);
+        popup.enabled = true;
     }
 
-    public void ShowView(Canvas view)
-    {
-        
-    }
-    
     public void UpdateTime()
     {
         float currentTime = Time.time;

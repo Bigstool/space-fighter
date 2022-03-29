@@ -50,11 +50,6 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetMouseButtonDown(0))
-        {
-            OnStart();
-        }
-
         if (Input.GetKeyDown(KeyCode.Space))
         {
             if (currentGameState == GameState.inGame)
@@ -118,6 +113,7 @@ public class GameManager : MonoBehaviour
     public void OnMenu()
     {
         currentGameState = GameState.menu;
+        Initialize();
     }
     
     public void OnMatch(List<GameObject> match)
