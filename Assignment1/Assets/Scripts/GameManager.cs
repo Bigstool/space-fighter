@@ -104,9 +104,9 @@ public class GameManager : MonoBehaviour
     
     public void OnGameOver(GameOverState state)
     {
+        OnPause();
         currentGameState = GameState.gameOver;
         gameOverState = state;
-        OnPause();
         UIManager.instance.OnGameOver(state);
     }
 
